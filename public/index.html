@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pallay | Origen Orgánico</title>
+    <meta name="description" content="Miel, Cacao y Café 100% orgánicos, producidos con procesos sustentables. Descubre Pallay.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <!-- Main Styles -->
+    <link rel="stylesheet" href="./css/style.css">
+    <!-- Phosphor Icons para UI -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+
+    <!-- Overlay y Side Cart -->
+    <div id="cart-overlay" class="overlay"></div>
+    <div id="side-cart" class="side-cart">
+        <div class="cart-header">
+            <h3>Tu Carrito</h3>
+            <button id="close-cart-btn" class="icon-btn"><i class="ph ph-x"></i></button>
+        </div>
+        <div class="cart-items" id="cart-items-container">
+            <!-- Los items dinámicos aparecerían aquí, por ahora hay texto vacío -->
+            <p class="empty-cart-msg">Tu carrito está vacío.</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total estimado:</span>
+                <span id="cart-total-price">$0.00</span>
+            </div>
+            <button class="btn btn-primary btn-checkout">Proceder al Pago</button>
+        </div>
+    </div>
+
+    <!-- Navegación -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">PALLAY<span class="dot">.</span></a>
+            <ul class="nav-links">
+                <li><a href="#home">Inicio</a></li>
+                <li><a href="#about">Origen</a></li>
+                <li><a href="#products" class="active">Productos</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="icon-btn cart-toggle" id="open-cart-btn">
+                    <i class="ph ph-shopping-bag"></i>
+                    <span class="cart-badge" id="cart-counter">0</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header / Hero Section -->
+    <header id="home" class="hero">
+        <div class="hero-bg">
+            <img src="./assets/hero.png" alt="Pallay Hero Image - Origen Orgánico">
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <span class="kicker">Cultivado con el alma</span>
+            <h1>Pura Esencia <br><span class="highlight">Orgánica</span></h1>
+            <p>Descubre el sabor inalterado de la naturaleza en nuestra Miel de altura, Cacao ancestral y Café de sombra. Procesos 100% artesanales y sostenibles.</p>
+            <div class="hero-buttons">
+                <a href="#products" class="btn btn-primary">Ver Catálogo</a>
+                <a href="#about" class="btn btn-secondary">Nuestra Historia</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sección de Productos -->
+    <section id="products" class="products-section">
+        <div class="section-header">
+            <h2>Nuestra <span class="highlight">Colección</span></h2>
+            <p>Seleccionados cuidadosamente desde el origen hasta tus manos.</p>
+        </div>
+
+        <div class="products-grid">
+            <!-- Producto 1: Miel -->
+            <article class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="./assets/honey.png" alt="Miel Orgánica Pallay" class="product-img">
+                    <div class="product-tags"><span class="tag">Nuevo</span></div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Miel Ámbar Silvestre</h3>
+                    <p class="product-desc">Cosechada de abejas nativas en bosques andinos, posee notas florales, propiedades antioxidantes y un dulzor inigualable.</p>
+                    <div class="product-action">
+                        <span class="price">$14.00</span>
+                        <button class="btn btn-add-cart" data-id="1" data-name="Miel Ámbar Silvestre" data-price="14.00" data-img="./assets/honey.png">
+                            <i class="ph ph-plus"></i> Añadir
+                        </button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Producto 2: Cacao -->
+            <article class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="./assets/cacao.png" alt="Cacao Orgánico Pallay" class="product-img">
+                    <div class="product-tags"><span class="tag tag-bestseller">Top Ventas</span></div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Cacao Fino de Aroma</h3>
+                    <p class="product-desc">Granos de cacao oscuro seleccionados a mano. Perfil de sabor profundo con toques a frutos rojos y tostado perfecto.</p>
+                    <div class="product-action">
+                        <span class="price">$18.50</span>
+                        <button class="btn btn-add-cart" data-id="2" data-name="Cacao Fino de Aroma" data-price="18.50" data-img="./assets/cacao.png">
+                            <i class="ph ph-plus"></i> Añadir
+                        </button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Producto 3: Café -->
+            <article class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="./assets/coffee.png" alt="Café Orgánico Pallay" class="product-img">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Café Tueste Oscuro</h3>
+                    <p class="product-desc">Café de especialidad cultivado bajo sombra. Cuerpo sedoso, acidez balanceada y un aroma embriagador que despierta los sentidos.</p>
+                    <div class="product-action">
+                        <span class="price">$22.00</span>
+                        <button class="btn btn-add-cart" data-id="3" data-name="Café Tueste Oscuro" data-price="22.00" data-img="./assets/coffee.png">
+                            <i class="ph ph-plus"></i> Añadir
+                        </button>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Información extra -->
+    <section id="about" class="about-section">
+        <div class="about-grid">
+            <div class="about-text">
+                <h2>El compromiso <span class="highlight">Pallay</span></h2>
+                <p>Nombramos a nuestra marca <strong>Pallay</strong> honrando los diseños y patrones andinos que representan la vida y la naturaleza. Trabajamos directamente con pequeñas comunidades agrícolas que protegen la fertilidad de la tierra, garantizando productos éticos, sustentables y de clase mundial.</p>
+                <ul class="features-list">
+                    <li><i class="ph-fill ph-plant"></i> 100% Orgánico Certificado</li>
+                    <li><i class="ph-fill ph-hand-heart"></i> Fair Trade (Comercio Justo)</li>
+                    <li><i class="ph-fill ph-leaf"></i> Libre de pesticidas</li>
+                </ul>
+            </div>
+            <div class="about-visual">
+                <div class="visual-box">
+                    <i class="ph-thin ph-globe-hemisphere-west"></i>
+                    <h3>Del Origen a tu Mesa</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>PALLAY.</h3>
+                <p>Naturaleza inalterada.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Compra</h4>
+                <ul>
+                    <li><a href="#">Miel</a></li>
+                    <li><a href="#">Cacao</a></li>
+                    <li><a href="#">Café</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Soporte</h4>
+                <ul>
+                    <li><a href="#">Preguntas Frecuentes</a></li>
+                    <li><a href="#">Envíos</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Pallay Organic. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="./js/app.js"></script>
+</body>
+</html>
