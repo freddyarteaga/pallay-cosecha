@@ -152,8 +152,8 @@ document.addEventListener('DOMContentLoaded', () => {
             checkoutBtn.textContent = "Procesando...";
             checkoutBtn.disabled = true;
 
-            // Enviamos el carrito a nuestro propio "mini-servidor" usando fetch (una petición web HTTP)
-            const response = await fetch('http://localhost:3000/api/checkout', {
+            // Enviamos el carrito a la ruta relativa (funciona tanto en local como en producción)
+            const response = await fetch('/api/checkout', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
