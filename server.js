@@ -13,6 +13,28 @@ const PORT = process.env.PORT || 3000;
 // Dominio dinámico: Cuando estemos en Render.com, esta variable apuntará allá
 const DOMAIN = process.env.DOMAIN_URL || `http://localhost:${PORT}`;
 
+// ---------------------------------------------------------------------------------
+// LIVE RELOAD PARA DESARROLLO (Refresca el navegador al guardar archivos)
+// ---------------------------------------------------------------------------------
+if (process.env.NODE_ENV !== 'production') {
+    const livereload = require('livereload');
+    const connectLivereload = require('connect-livereload');
+    
+    // Vigilamos la carpeta 'public' por si cambian HTML, CSS o JS del frontend
+    const liveReloadServer = livereload.createServer();
+    liveReloadServer.watch(path.join(__dirname, 'public'));
+    
+    // Inyectamos el pequeño script oculto en cada página web que permite refrescar
+    app.use(connectLivereload());
+    
+    // Forzamos al navegador a refrescar cuando Nodemon reinicia el servidor backend
+    liveReloadServer.server.once("connection", () => {
+        setTimeout(() => {
+            liveReloadServer.refresh("/");
+        }, 100);
+    });
+}
+
 app.use(cors());
 app.use(express.json());
 
@@ -57,8 +79,9 @@ app.post('/api/checkout', async (req, res) => {
                         name: productoReal.nombre,
                         // Stripe acepta imágenes absolutas (ej. urls vivas), por ahora lo omitimos
                     },
-                    // COP es moneda de cero decimales en Stripe, NO se multiplica por 100
-                    unit_amount: Math.round(productoReal.precioReal),
+                    // Stripe interpreta COP con 2 decimales en el checkout actual, así que DEBEMOS multiplicar por 100.
+                    // (Ej. 56000 COP -> 5600000 para que Stripe lo lea como 56,000.00)
+                    unit_amount: Math.round(productoReal.precioReal * 100),
                 },
                 quantity: cartItem.quantity,
             };
