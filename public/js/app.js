@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (cart.length === 0) {
             cartItemsContainer.innerHTML = '<p class="empty-cart-msg">Tu carrito está vacío.</p>';
-            cartTotalPrice.textContent = '$0.00';
+            cartTotalPrice.textContent = '$0 COP';
             checkoutBtn.disabled = true; // Desactivar el botón si no hay productos
             return;
         }
@@ -84,7 +84,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 <img src="${item.img}" alt="${item.name}" class="cart-item-img" style="width: 50px; border-radius: 8px;">
                 <div class="cart-item-info">
                     <h4 class="cart-item-title">${item.name}</h4>
-                    <span class="cart-item-price">$${item.price.toFixed(2)} x ${item.quantity}</span>
+                    <span class="cart-item-price">$${item.price.toLocaleString('es-CO')} COP</span>
+                    <div class="cart-item-qty-controls">
+                        <button class="icon-btn dec-item-btn" data-index="${index}"><i class="ph ph-minus"></i></button>
+                        <span class="qty-display">${item.quantity}</span>
+                        <button class="icon-btn inc-item-btn" data-index="${index}"><i class="ph ph-plus"></i></button>
+                    </div>
                 </div>
                 <button class="icon-btn remove-item-btn" data-index="${index}">
                     <i class="ph ph-trash"></i>
@@ -94,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cartItemsContainer.appendChild(cartArticle);
         });
 
-        cartTotalPrice.textContent = '$' + total.toFixed(2);
+        cartTotalPrice.textContent = '$' + total.toLocaleString('es-CO') + ' COP';
 
         // Volver a activar la función de escuchar clicks en los basureros recién creados
         const trashBtns = document.querySelectorAll('.remove-item-btn');
@@ -104,6 +109,34 @@ document.addEventListener('DOMContentLoaded', () => {
                 const btnElement = e.target.closest('.remove-item-btn');
                 const idx = parseInt(btnElement.getAttribute('data-index'));
                 removeCartItem(idx);
+            });
+        });
+
+        // Controles de cantidad (+)
+        const incBtns = document.querySelectorAll('.inc-item-btn');
+        incBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const btnElement = e.target.closest('.inc-item-btn');
+                const idx = parseInt(btnElement.getAttribute('data-index'));
+                cart[idx].quantity += 1;
+                saveCartToStorage();
+                updateCartUI();
+            });
+        });
+
+        // Controles de cantidad (-)
+        const decBtns = document.querySelectorAll('.dec-item-btn');
+        decBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const btnElement = e.target.closest('.dec-item-btn');
+                const idx = parseInt(btnElement.getAttribute('data-index'));
+                if (cart[idx].quantity > 1) {
+                    cart[idx].quantity -= 1;
+                    saveCartToStorage();
+                    updateCartUI();
+                } else {
+                    removeCartItem(idx);
+                }
             });
         });
     };

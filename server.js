@@ -23,9 +23,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 // CATÁLOGO DEL BACKEND (Nuestra única fuente de verdad)
 // ---------------------------------------------------------------------------------
 const CATÁLOGO_SEGURO = [
-    { id: "1", nombre: "Miel Ámbar Silvestre", precioReal: 14.00, img: "/assets/honey.png" },
-    { id: "2", nombre: "Cacao Fino de Aroma", precioReal: 18.50, img: "/assets/cacao.png" },
-    { id: "3", nombre: "Café Tueste Oscuro", precioReal: 22.00, img: "/assets/coffee.png" },
+    { id: "1", nombre: "Miel Ámbar Silvestre", precioReal: 56000, img: "/assets/honey.png" },
+    { id: "2", nombre: "Cacao Fino de Aroma", precioReal: 74000, img: "/assets/cacao.png" },
+    { id: "3", nombre: "Café Tueste Oscuro", precioReal: 88000, img: "/assets/coffee.png" },
+    { id: "4", nombre: "Panela Orgánica Pulverizada", precioReal: 25000, img: "/assets/panela.png" },
+    { id: "5", nombre: "Té de Guayusa", precioReal: 32000, img: "/assets/tea.png" },
+    { id: "6", nombre: "Macambo Tostado", precioReal: 45000, img: "/assets/macambo.png" },
 ];
 
 // ---------------------------------------------------------------------------------
@@ -49,13 +52,13 @@ app.post('/api/checkout', async (req, res) => {
 
             return {
                 price_data: {
-                    currency: 'usd', // Puedes cambiar a tu moneda local (mxn, pen, cop) si Stripe lo soporta.
+                    currency: 'cop', // Cambiado a Pesos Colombianos
                     product_data: {
                         name: productoReal.nombre,
                         // Stripe acepta imágenes absolutas (ej. urls vivas), por ahora lo omitimos
                     },
-                    // Stripe trabaja en CENTAVOS. Entonces multiplicamos por 100. (Ej. $14.00 = 1400 centavos)
-                    unit_amount: Math.round(productoReal.precioReal * 100),
+                    // COP es moneda de cero decimales en Stripe, NO se multiplica por 100
+                    unit_amount: Math.round(productoReal.precioReal),
                 },
                 quantity: cartItem.quantity,
             };
